@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:TestVisual.Helpers"
+             x:Class="TestVisual.MainPage"
+             x:Name="PaginaPrincipale"
+             Visual="Material">
+    <StackLayout>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout BackgroundColor="{x:Static helpers:Colors.BgColor}" VerticalOptions="FillAndExpand" Padding="20, -90, 20, 0">
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{x:Static helpers:Colors.BgColor}" Spacing="30">
+                    <StackLayout HorizontalOptions="Center">
+                        <Label 
+                        Text="Accesso sistema gestione" 
+                        TextColor="{x:Static helpers:Colors.LoginTextColor}"
+                        FontSize="20"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Entry Keyboard="Text" Placeholder="Username" x:Name="Username" TextColor="{x:Static helpers:Colors.LoginTextColor}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Entry IsPassword="True" Placeholder="Password" x:Name="Password" TextColor="{x:Static helpers:Colors.LoginTextColor}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Button Text="Login" 
+                            CornerRadius = "20"
+                            BackgroundColor="{x:Static helpers:Colors.ButtonBgColor}"
+                            TextColor="{x:Static helpers:Colors.ButtonTextColor}"
+                            BorderColor="{x:Static helpers:Colors.ButtonBorderColor}"
+                            BorderWidth="0.3"
+                            ImageSource="{
+                                FontImage FontFamily={StaticResource MaterialDesignFont},
+                                Glyph={x:Static helpers:ContainerIconFont.Login},
+                                Color={x:Static helpers:Colors.ButtonTextColor}
+                            }">
+                        </Button>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="End">
+
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Footer -->
+            <StackLayout VerticalOptions="End">
+                <Frame BackgroundColor="{x:Static helpers:Colors.BarBgColor}" CornerRadius="0" x:Name="Footer">
+                    <Label x:Name ="Version" TextColor="{x:Static helpers:Colors.BarTextColor}" 
+                                   FontSize="Small" HorizontalOptions="Start"/>
+                </Frame>
+            </StackLayout>
+
+            <!-- QRCode Login -->
+            <StackLayout VerticalOptions="End" HorizontalOptions="End" Margin="0, 0, 20, 23">
+                <Button    
+                    WidthRequest="70"
+                    HeightRequest="70"
+                    CornerRadius = "35"
+                    BackgroundColor="{x:Static helpers:Colors.ButtonBgColor}"
+                    TextColor="{x:Static helpers:Colors.ButtonTextColor}"
+                    BorderColor="{x:Static helpers:Colors.ButtonBorderColor}"
+                    BorderWidth="0.3"
+                    ImageSource="{
+                        FontImage FontFamily={StaticResource MaterialDesignFont},
+                        Glyph={x:Static helpers:ContainerIconFont.QrcodeScan},
+                        Color={x:Static helpers:Colors.ButtonTextColor}
+                    }">
+                </Button>
+            </StackLayout>
+
+            <!-- loader -->
+            <ContentView x:Name="BgLayerLogin"
+            BackgroundColor="{x:Static helpers:Colors.ActivityBgColor}"
+            IsVisible="{Binding Source={x:Reference PaginaPrincipale}, Path=IsBusy}"
+            Opacity="0.5" />
+            <StackLayout 
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                IsVisible="{Binding Source={x:Reference PaginaPrincipale}, Path=IsBusy}" x:Name="ActivityContainer">
+                <ActivityIndicator x:Name="IndicatorLoaderLogin"
+                    BackgroundColor="Transparent"
+                    IsRunning="{Binding Source={x:Reference PaginaPrincipale}, Path=IsBusy}"
+                    IsVisible="{Binding Source={x:Reference PaginaPrincipale}, Path=IsBusy}"
+                    VerticalOptions="CenterAndExpand"
+                    Color="{x:Static helpers:Colors.ActivityTextColor}" />
+                <Label HorizontalTextAlignment="Center"
+                    Text="Attendere prego..."
+                    TextColor="{x:Static helpers:Colors.ActivityTextColor}" />
+            </StackLayout>
+
+        </Grid>
+    </StackLayout>
+</ContentPage>
